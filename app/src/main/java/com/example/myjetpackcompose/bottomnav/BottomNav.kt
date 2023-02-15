@@ -58,9 +58,8 @@ fun BottomBar(
     
     Row(
         modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 10.dp)
-            .background(Color.White)
-            .fillMaxSize(),
+            .background(Color.Blue)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
 
@@ -99,7 +98,7 @@ fun RowScope.Additem(
     ){
         Row(
             modifier =Modifier
-                .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp),
+                .padding(horizontal = 10.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
