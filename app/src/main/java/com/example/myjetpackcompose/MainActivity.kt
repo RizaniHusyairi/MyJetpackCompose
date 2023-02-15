@@ -19,86 +19,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.myjetpackcompose.data.BottomNavItem
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.myjetpackcompose.bottomnav.BottomNav
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ScaffoldExample()
-//            Column(
-//                modifier = Modifier.fillMaxSize().padding(16.dp)
-//            ) {
-//                TopAppBar()
-//            }
+            BottomNav()
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ScaffoldExample(){
-    val materialBlue100 = Color(0xFF609EA2)
-    val bottomNavItems = listOf(
-        BottomNavItem(
-            name = "Home",
-            route = "home",
-            icon = Icons.Rounded.Home,
-        ),
-        BottomNavItem(
-            name = "Create",
-            route = "add",
-            icon = Icons.Rounded.AddCircle,
-        ),
-        BottomNavItem(
-            name = "Settings",
-            route = "settings",
-            icon = Icons.Rounded.Settings,
-        ),
-    )
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = "Skripsweet")},
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.ArrowBack, "backIcon")
-                    }
-                },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = materialBlue100,
-                    titleContentColor = Color.White,
-                ),
-                
-            )
-        },
-        bottomBar = {
-            NavigationBar(
-                containerColor = materialBlue100
-            ) {
-                bottomNavItems.forEach{item->
-                val selected = item.route == backStack
-
-                }
-            }
-        },
-        content = {
-            val checkBoxState = remember {
-                mutableStateOf(false)
-            }
-            CustomCheckBox(title = "Dosen", checkBoxState = checkBoxState.value){
-                checkBoxState.value = !checkBoxState.value
-
-            }
-
-        }
-
-    )
-
-
-
 }
 
 
