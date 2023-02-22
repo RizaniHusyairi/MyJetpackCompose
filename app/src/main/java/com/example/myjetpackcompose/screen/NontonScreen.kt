@@ -9,11 +9,11 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun ReportScreen() {
+fun NontonScreen() {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Report", fontSize = 20.sp)
+        Text(text = "Nonton", fontSize = 20.sp)
 
     }
 }

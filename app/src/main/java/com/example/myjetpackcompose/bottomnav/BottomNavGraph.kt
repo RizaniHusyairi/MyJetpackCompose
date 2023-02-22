@@ -5,9 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.myjetpackcompose.screen.HomeScreen
-import com.example.myjetpackcompose.screen.ProfileScreen
-import com.example.myjetpackcompose.screen.ReportScreen
+import com.example.myjetpackcompose.screen.*
 
 
 @Composable
@@ -16,15 +14,21 @@ fun BottomNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreen.Home.route){
-        composable(BottomBarScreen.Home.route){
+        startDestination = BottomBarScreen.Skripsi.route){
+        composable(BottomBarScreen.Skripsi.route){
             HomeScreen()
         }
-        composable(BottomBarScreen.Report.route){
-            ReportScreen()
+        composable(BottomBarScreen.Jadwal.route){
+            JadwalScreen()
         }
-        composable(BottomBarScreen.Profile.route){
-            ProfileScreen()
+        composable(BottomBarScreen.Nonton.route){
+            NontonScreen()
+        }
+        composable(BottomBarScreen.Judul.route){
+            JudulScreen()
+        }
+        composable(BottomBarScreen.Setting.route){
+            SettingScreen()
         }
     }
 }

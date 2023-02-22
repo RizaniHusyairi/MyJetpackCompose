@@ -5,27 +5,49 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import com.example.myjetpackcompose.R
 
 sealed class BottomBarScreen(
     val route: String,
     val title: String,
-    val icon : ImageVector
+    val icon : Int,
+    val iconActive : Int
 ){
-    object Home: BottomBarScreen(
-        route = "home",
-        title = "Home",
-        icon = Icons.Rounded.Home
+    object Skripsi: BottomBarScreen(
+        route = "skripsweet",
+        title = "Skripsweet",
+        icon = R.drawable.skripsi_icon,
+        iconActive = R.drawable.skripsi_active_ic
     )
 
-    object Report: BottomBarScreen(
-        route = "report",
-        title = "Report",
-        icon = Icons.Rounded.Warning
+    object Jadwal: BottomBarScreen(
+        route = "jadwal",
+        title = "Jadwal Seminar",
+        icon = R.drawable.jadwal_icon,
+        iconActive = R.drawable.jadwal_active_ic
     )
 
-    object Profile: BottomBarScreen(
-        route = "profile",
-        title = "Profile",
-        icon = Icons.Rounded.Person
+    object Nonton: BottomBarScreen(
+        route = "nonton",
+        title = "Nonton Seminar",
+        icon = R.drawable.nonton_icon,
+        iconActive = R.drawable.nonton_active_ic
     )
+    object Judul: BottomBarScreen(
+        route = "judul",
+        title = "Judul Skripsi",
+        icon = R.drawable.judul_icon,
+        iconActive = R.drawable.judul_active_ic
+    )
+    object Setting: BottomBarScreen(
+        route = "setting",
+        title = "Setting",
+        icon = R.drawable.setting_icon,
+        iconActive = R.drawable.setting_active_ic
+    )
+
+
+
+
 }

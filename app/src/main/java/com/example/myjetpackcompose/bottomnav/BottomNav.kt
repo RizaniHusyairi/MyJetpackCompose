@@ -6,10 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -49,16 +46,18 @@ fun BottomBar(
     navController: NavHostController
 ){
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Report,
-        BottomBarScreen.Profile
+        BottomBarScreen.Skripsi,
+        BottomBarScreen.Jadwal,
+        BottomBarScreen.Nonton,
+        BottomBarScreen.Judul,
+        BottomBarScreen.Setting
     )
     val navStackBackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry?.destination
     
     Row(
         modifier = Modifier
-            .background(Color.Blue)
+            .background(Color.White)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
@@ -82,6 +81,7 @@ fun RowScope.Additem(
     }
 
     val background = if (selected) Purple80.copy(alpha = 0.3f) else Color.Transparent
+    val contentIcon = if (selected) screen.icon else screen.iconActive
     val contentColor = if (selected) Color.White else Color.Black
 
     Box(
@@ -103,9 +103,8 @@ fun RowScope.Additem(
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
-                imageVector = screen.icon,
+                painter = painterResource(id = contentIcon),
                 contentDescription = "icon",
-                tint = contentColor
                 )
             AnimatedVisibility(visible = selected) {
                 Text(

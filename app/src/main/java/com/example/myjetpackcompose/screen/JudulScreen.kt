@@ -9,11 +9,11 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun ProfileScreen() {
+fun JudulScreen() {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(text = "Profile", fontSize = 20.sp)
+        Text(text = "Judul", fontSize = 20.sp)
 
     }
 }
