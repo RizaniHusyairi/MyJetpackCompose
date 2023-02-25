@@ -1,6 +1,7 @@
 package com.example.myjetpackcompose.bottomnav
 
 import android.annotation.SuppressLint
+import android.graphics.ColorMatrix
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +30,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
+import com.example.myjetpackcompose.ui.theme.ColorIconBar
 import com.example.myjetpackcompose.ui.theme.Purple40
 import com.example.myjetpackcompose.ui.theme.Purple80
 
@@ -37,7 +41,7 @@ import com.example.myjetpackcompose.ui.theme.Purple80
 fun BottomNav() {
     val navController = rememberNavController()
     Scaffold(
-
+        topBar ={ CustomTopSkripsi(navController) },
         bottomBar = { BottomBar(navController = navController)}
     ) {
         BottomNavGraph(navController = navController)
@@ -60,23 +64,40 @@ fun BottomBar(
     val navStackBackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry?.destination
     
-    Row(
-        modifier = Modifier.shadow(
+    NavigationBar(
+        containerColor = Color.Transparent,
+        modifier = Modifier
+            .shadow(
             elevation = 4.dp,
             ambientColor = Color(0x3C000000),
             shape = RoundedCornerShape(16.dp)
-        )
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+                )
+            .fillMaxWidth()
+            .height(100.dp)
+            .padding(4.dp)
     ) {
-
         screens.forEach { screen->
             if (currentDestination != null) {
                 Additem(screen = screen, currentDestination = currentDestination, navController = navController)
             }
         }
     }
+//
+//    Row(
+//
+//        modifier = Modifier
+//            .shadow(
+//                elevation = 4.dp,
+//                ambientColor = Color(0x3C000000),
+//                shape = RoundedCornerShape(16.dp)
+//            )
+//            .fillMaxWidth(),
+//        horizontalArrangement = Arrangement.SpaceBetween,
+//        verticalAlignment = Alignment.CenterVertically,
+//    ) {
+//
+//
+//    }
 }
 
 @Composable
@@ -85,47 +106,74 @@ fun RowScope.Additem(
     currentDestination: NavDestination,
     navController: NavHostController
 ){
-    val selected = currentDestination?.hierarchy?.any{
+    val selected = currentDestination.hierarchy.any{
         it.route == screen.route
     }
 
     val background = if (selected) Purple80.copy(alpha = 0.3f) else Color.Transparent
     val contentIcon = if (!selected) screen.icon else screen.iconActive
 
-    Box(
-        modifier = Modifier
-            .height(60.dp).width(60.dp)
-            .background(background)
-            .clickable(onClick = {
-                navController.navigate(screen.route) {
-                    popUpTo(navController.graph.findStartDestination().id)
-                    launchSingleTop = true
-                }
-            }),
-        contentAlignment = Alignment.Center
-    ){
-        Column(
-            modifier =Modifier
-                .padding(horizontal = 10.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
 
-        ) {
-            Icon(
-                painter = painterResource(id = contentIcon),
-                contentDescription = "icon",
-                tint = Color(0xff003B72)
-                )
-            Text(
-                text = screen.title,
-                color = Color.Black,
-                fontSize = 9.sp,
-                textAlign = TextAlign.Center
-                )
-                
+    NavigationBarItem(
+    label = {
+        Text(
+            text = screen.title,
+            textAlign = TextAlign.Center,
+        )
+    },
+    icon ={
+        Icon(
+            painter = painterResource(id = contentIcon),
+            contentDescription = screen.title,
+            tint = ColorIconBar
 
+        )
+    },
+        selected = selected,
+        onClick ={
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
         }
-    }
+
+)
+
+//    Box(
+//        modifier = Modifier
+//            .height(60.dp)
+//            .width(60.dp)
+//            .background(background)
+//            .clickable(onClick = {
+//                navController.navigate(screen.route) {
+//                    popUpTo(navController.graph.findStartDestination().id)
+//                    launchSingleTop = true
+//                }
+//            }),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Column(
+//            modifier =Modifier
+//                .padding(horizontal = 10.dp, vertical = 8.dp),
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
+//
+//        ) {
+//            Icon(
+//                painter = painterResource(id = contentIcon),
+//                contentDescription = "icon",
+//                tint = Color(0xff003B72)
+//                )
+//            Text(
+//                text = screen.title,
+//                color = Color.Black,
+//                fontSize = 9.sp,
+//                textAlign = TextAlign.Center
+//                )
+//
+//
+//        }
+//    }
 }
 
 @Composable

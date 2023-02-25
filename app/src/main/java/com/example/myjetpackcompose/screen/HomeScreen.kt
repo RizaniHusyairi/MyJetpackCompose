@@ -15,17 +15,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myjetpackcompose.font.customFontPoetsen
 import com.example.myjetpackcompose.font.customFontPoppins
+import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
+import com.example.myjetpackcompose.ui.theme.TitleColor
 import org.w3c.dom.Text
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
-    Scaffold(
-        topBar ={ CustomTopSkripsi()}
-    ) {
-
-    }
+//    Scaffold(
+//        topBar ={ CustomTopSkripsi("Skripsi")}
+//    ) {
+//
+//    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -35,44 +37,8 @@ fun HomeScreen() {
             modifier = Modifier.padding(top = 90.dp)
         )
 
+
     }
 
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomTopSkripsi(){
-    Box(modifier = Modifier
-        .height(80.dp)
-        .fillMaxWidth()
-    ){
-        TopAppBar(
-            modifier = Modifier.padding(top = 24.dp),
-            title = {
-                Text(
-                    text = "Skripsi",
-                fontFamily = customFontPoetsen
-                )
-            },
-            actions = {
-                NotifAction()
-            }
-        )
-    }
-}
-
-@Composable
-fun NotifAction(){
-    val context = LocalContext.current
-    IconButton(onClick = {
-        Toast.makeText(context,"Notification",Toast.LENGTH_SHORT).show()
-    }) {
-        Icon(
-            imageVector = Icons.Outlined.Notifications,
-            contentDescription = "Notification",
-            tint = Color.Black
-        )
-
-    }
-}
