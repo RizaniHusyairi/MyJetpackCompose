@@ -16,11 +16,7 @@ import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JudulScreen() {
-//    Scaffold(
-//        topBar ={ CustomTopSkripsi("Judul Skripsi") }
-//    ) {
-//
-//    }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

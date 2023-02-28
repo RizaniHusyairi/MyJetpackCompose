@@ -16,11 +16,6 @@ import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NontonScreen() {
-//    Scaffold(
-//        topBar ={ CustomTopSkripsi("Nonton Seminar") }
-//    ) {
-//
-//    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
