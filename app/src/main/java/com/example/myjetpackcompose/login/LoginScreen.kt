@@ -101,6 +101,7 @@ fun LoginScreen(navController: NavController) {
                     Log.e("NIM", nim)
                     Log.e("Pass", pass)
                     navController.navigate(MainScreen.MahasiswaScreen.route)
+
                 }
 
             }

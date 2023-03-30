@@ -65,16 +65,21 @@ fun BottomBar(
     val currentDestination = navStackBackEntry?.destination
     
     NavigationBar(
-        containerColor = Color.Transparent,
         modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = Color.White,
+                shape = RoundedCornerShape(16.dp)
+            )
             .shadow(
-            elevation = 4.dp,
+            elevation = 1.dp,
             ambientColor = Color(0x3C000000),
             shape = RoundedCornerShape(16.dp)
                 )
-            .fillMaxWidth()
             .height(100.dp)
-            .padding(4.dp)
+            .padding(4.dp),
+        containerColor = Color.Transparent,
+        tonalElevation = 4.dp
     ) {
         screens.forEach { screen->
             if (currentDestination != null) {

@@ -15,4 +15,19 @@ val ColorProposal = Color(0xff01932A)
 val ColorHasil = Color(0xff245B79)
 val ColorPendadaran = Color(0xffAD0202)
 
+val ColorReservasi = Color(0xffAB7A4B)
+val ColorDisetujui = Color(0xff609450)
+
+val ColorPembimbingan = Color(0xff45484D)
+val ColorSeminar = Color(0xff609450)
+val ColorPenjadwalan = Color(0xffAB7A4B)
+val ColorLulus = Color(0xff4A8BC2)
+
+val ColorButtonPembimbingan = Color(0xff252629)
+val ColorButtonSeminar = Color(0xff3F6235)
+val ColorButtonPenjadwalan = Color(0xff87603A)
+val ColorButtonLulus = Color(0xff4074A0)
+
+val ColorAbu = Color(0xffD9D9D9)
+
 val TitleColor = Color(0xff455795)
