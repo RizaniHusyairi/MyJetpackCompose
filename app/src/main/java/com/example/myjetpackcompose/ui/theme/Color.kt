@@ -15,6 +15,13 @@ val ColorProposal = Color(0xff01932A)
 val ColorHasil = Color(0xff245B79)
 val ColorPendadaran = Color(0xffAD0202)
 
+val ColorPembimbing = Color(0xff4A8BC2)
+val ColorPenguji = Color(0xff464646)
+val ColorBelumRevisian = Color(0xffBD362F)
+val ColorBelumMenilai = Color(0xffAB7A4B)
+val ColorSelesai = Color(0xff609450)
+
+
 val ColorReservasi = Color(0xffAB7A4B)
 val ColorDisetujui = Color(0xff609450)
 
