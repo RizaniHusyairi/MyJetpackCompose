@@ -1,53 +1,45 @@
 package com.example.myjetpackcompose.screen
 
-import android.annotation.SuppressLint
-import android.widget.Toast
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowRight
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ModifierInfo
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.myjetpackcompose.R
-import com.example.myjetpackcompose.font.customFontPoetsen
+import com.example.myjetpackcompose.feature_skripsweet.data.data_source.BimbinganMahasiswaTemp
 import com.example.myjetpackcompose.font.customFontPoppins
-import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
+import com.example.myjetpackcompose.screen.component.CustomListBimbinganHome
 import com.example.myjetpackcompose.screen.component.TapLayoutDospem
-import com.example.myjetpackcompose.ui.theme.ColorAbu
 import com.example.myjetpackcompose.ui.theme.ColorIconBar
-import com.example.myjetpackcompose.ui.theme.TitleColor
-import org.w3c.dom.Text
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController, dataBimbingan:List<BimbinganMahasiswaTemp>) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
-            .padding(10.dp),
+            .padding(start = 10.dp, end = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.padding(top = 100.dp))
         Image(
             painter = painterResource(id = R.drawable.contohpp1),
             contentDescription ="contoh poto",
@@ -87,17 +79,32 @@ fun HomeScreen() {
             }
         }
         TapLayoutDospem()
+
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 5.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ){
             Text(
                 text = "Bimbingan skripsi",
                 fontFamily = customFontPoppins,
-                fontSize = 14.sp
+                fontSize = 17.sp
             )
-            Icon(imageVector = Icons.Filled.ArrowRight, contentDescription = "Bimbingan Skripsi Lengkap")
+                Icon(imageVector = Icons.Filled.ArrowRight, contentDescription = "Bimbingan Skripsi Lengkap",
+                    modifier = Modifier.clickable { navController.navigate("Bimbingan") })
         }
+
+
+
+        LazyRow(
+            modifier = Modifier.padding(vertical = 5.dp),
+            horizontalArrangement = Arrangement.spacedBy(7.dp),
+            content = {
+            items(items = dataBimbingan){bimbingan ->
+                CustomListBimbinganHome(bimbingan = bimbingan)
+            }
+        })
     }
 
 }

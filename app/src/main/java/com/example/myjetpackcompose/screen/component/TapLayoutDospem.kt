@@ -65,7 +65,7 @@ fun TapLayoutDospem(){
                     Tab(
                         text = {
                             Text(title, style = if (pagerState.currentPage == index)
-                                TextStyle(color = Color.White, fontSize = 18.sp, textAlign = TextAlign.Center)
+                                TextStyle(color = Color.White, fontSize = 16.sp, textAlign = TextAlign.Center)
                             else TextStyle(color = Color.Black, fontSize = 16.sp, textAlign = TextAlign.Center)
 
                             )

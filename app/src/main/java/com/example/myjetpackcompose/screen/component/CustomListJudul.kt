@@ -1,33 +1,34 @@
 package com.example.myjetpackcompose.screen.component
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.zIndex
-import com.example.myjetpackcompose.MainActivity
+import com.example.myjetpackcompose.R
 import com.example.myjetpackcompose.feature_skripsweet.data.data_source.JudulSkripsi
 import com.example.myjetpackcompose.font.customFontPoppins
 import com.example.myjetpackcompose.ui.theme.*
-import kotlinx.coroutines.launch
+
 
 @Composable
 fun CustomListJudul(judul: JudulSkripsi) {
@@ -177,7 +178,7 @@ fun CustomListJudul(judul: JudulSkripsi) {
 
                     .offset(y = (-2).dp)
                     .background(
-                        color = Color(0xffE3E3E3),
+                        color = Color.White,
                         shape = RoundedCornerShape(bottomEnd = 6.dp, bottomStart = 6.dp)
                     )
                     .border(
@@ -187,43 +188,47 @@ fun CustomListJudul(judul: JudulSkripsi) {
                     )
                     .padding(8.dp)
             ) {
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = judul.dospem1,
-                        fontFamily = customFontPoppins,
-                        fontSize = 9.sp,
-
-                    )
-                    Box(modifier = Modifier
+                BoxDosenPenilai(
+                    nama = judul.dospem1,
+                    status = "Belum Menilai",
+                    statusDosen = "Pembimbing 1",
+                    foto = R.drawable.bapak_putut
+                )
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .background(
-                            color = ColorPembimbing,
-                            shape = RoundedCornerShape(10.dp)
+                            color = Color.Black
                         )
-                        .padding(6.dp)
-                    ) {
-                        Text(
-                            text = "Pembimbing 1",
-                            fontFamily = customFontPoppins,
-                            fontSize = 9.sp,
-                            color = Color.White
-                        )
-                        
-                    }
-                    
-                }
-                Row() {
-                    Text(text = judul.dospem1)
 
-                }
-                
+                )
+                BoxDosenPenilai(
+                    nama = judul.dospem2,
+                    status = "Selesai",
+                    statusDosen = "Pembimbing 2",
+                    foto = R.drawable.bapak_putut
+                )
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = Color.Black
+                        )
+
+                )
+                BoxDosenPenilai(
+                    nama = judul.dospem2,
+                    status = "Belum Revisian",
+                    statusDosen = "Penguji 1",
+                    foto = R.drawable.bapak_putut
+                )
+
+
             }
         }
 
     }
 }
-
 @Composable
 fun showToast(message: String) {
     val context = LocalContext.current
@@ -231,6 +236,100 @@ fun showToast(message: String) {
 }
 
 @Composable
-fun BoxDosenPenilai(){
+fun BoxDosenPenilai(
+    nama: String,
+    status: String,
+    statusDosen: String,
+    foto: Int
+
+
+){
+    val colorDosen = when(statusDosen){
+        "Pembimbing 1" -> ColorPembimbing
+        "Pembimbing 2" -> ColorPembimbing
+        "Penguji 1" -> ColorPenguji
+        "Penguji 2" -> ColorPenguji
+        else -> {Color.Transparent}
+    }
+    val colorStatus = when(status){
+        "Belum Revisian" -> ColorBelumRevisian
+        "Belum Menilai" -> ColorBelumMenilai
+        "Selesai" -> ColorSelesai
+        else -> {Color.Transparent}
+    }
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+
+    ) {
+        Row() {
+            Image(
+                painter = painterResource(id = foto),
+                contentDescription = nama,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
+            Column(
+                modifier = Modifier.padding(start = 5.dp)
+            ){
+                Text(
+                    text = nama,
+                    fontFamily = customFontPoppins,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 11.sp,
+
+                    )
+                Text(
+                    text = "3494723472",
+                    fontFamily = customFontPoppins,
+                    fontSize = 10.sp
+                )
+
+            }
+
+        }
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.End
+        ) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        color = colorDosen,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .padding(4.dp)
+            ) {
+                Text(
+                    text = statusDosen,
+                    fontFamily = customFontPoppins,
+                    fontSize = 9.sp,
+                    color = Color.White
+                )
+
+            }
+            Spacer(modifier = Modifier.padding(3.dp))
+            Box(modifier = Modifier
+                .background(
+                    color = colorStatus,
+                    shape = RoundedCornerShape(10.dp)
+                )
+                .padding(4.dp)
+            ) {
+                Text(
+                    text = status,
+                    fontFamily = customFontPoppins,
+                    fontSize = 9.sp,
+                    color = Color.White
+                )
+
+            }
+
+        }
+
+    }
 
 }

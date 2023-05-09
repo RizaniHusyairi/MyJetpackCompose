@@ -22,15 +22,13 @@ import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun NontonScreen() {
-    Spacer(modifier = Modifier.padding(top = 100.dp))
     val nontonRepo = NontonRepo()
     val getAllData = nontonRepo.GetAllData()
 
     LazyColumn(
-        modifier = Modifier.padding(top = 100.dp, end = 10.dp, start = 10.dp),
+        modifier = Modifier.padding(end = 10.dp, start = 10.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         content = {
             items(items = getAllData){nonton ->

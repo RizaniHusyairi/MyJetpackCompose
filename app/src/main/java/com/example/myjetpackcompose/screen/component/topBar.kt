@@ -45,11 +45,11 @@ fun CustomTopSkripsi(navController: NavHostController){
 
     }
     Box(modifier = Modifier
-        .height(80.dp)
+        .height(100.dp)
         .fillMaxWidth()
     ){
         TopAppBar(
-            modifier = Modifier.padding(top = 24.dp),
+            modifier = Modifier.padding(top = 24.dp, bottom = 10.dp),
             title = {
                 Text(
                     text = title,

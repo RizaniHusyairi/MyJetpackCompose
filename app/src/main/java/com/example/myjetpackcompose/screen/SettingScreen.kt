@@ -12,8 +12,6 @@ import androidx.compose.ui.unit.sp
 import com.example.myjetpackcompose.screen.component.CustomTopSkripsi
 
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingScreen() {
     Column(

@@ -2,13 +2,18 @@ package com.example.myjetpackcompose.bottomnav
 
 import android.annotation.SuppressLint
 import android.graphics.ColorMatrix
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -35,16 +40,16 @@ import com.example.myjetpackcompose.ui.theme.ColorIconBar
 import com.example.myjetpackcompose.ui.theme.Purple40
 import com.example.myjetpackcompose.ui.theme.Purple80
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BottomNav() {
     val navController = rememberNavController()
+
     Scaffold(
         topBar ={ CustomTopSkripsi(navController) },
         bottomBar = { BottomBar(navController = navController)}
     ) {
-        BottomNavGraph(navController = navController)
+        BottomNavGraph(navController = navController, it)
 
         
     }
@@ -63,46 +68,36 @@ fun BottomBar(
     )
     val navStackBackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navStackBackEntry?.destination
-    
-    NavigationBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .shadow(
-            elevation = 1.dp,
-            ambientColor = Color(0x3C000000),
-            shape = RoundedCornerShape(16.dp)
-                )
-            .height(100.dp)
-            .padding(4.dp),
-        containerColor = Color.Transparent,
-        tonalElevation = 4.dp
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 6.dp
     ) {
-        screens.forEach { screen->
-            if (currentDestination != null) {
-                Additem(screen = screen, currentDestination = currentDestination, navController = navController)
+
+        NavigationBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = Color.Transparent,
+                    shape = RoundedCornerShape(16.dp)
+                )
+//                .shadow(
+//                elevation = 1.dp,
+//                ambientColor = Color(0x3C000000),
+//                shape = RoundedCornerShape(16.dp)
+//                    )
+                .height(100.dp)
+                .padding(4.dp),
+            containerColor = Color.Transparent,
+            tonalElevation = 4.dp
+        ) {
+            screens.forEach { screen->
+                if (currentDestination != null) {
+                    Additem(screen = screen, currentDestination = currentDestination, navController = navController)
+                }
             }
         }
     }
-//
-//    Row(
-//
-//        modifier = Modifier
-//            .shadow(
-//                elevation = 4.dp,
-//                ambientColor = Color(0x3C000000),
-//                shape = RoundedCornerShape(16.dp)
-//            )
-//            .fillMaxWidth(),
-//        horizontalArrangement = Arrangement.SpaceBetween,
-//        verticalAlignment = Alignment.CenterVertically,
-//    ) {
-//
-//
-//    }
+
 }
 
 @Composable
@@ -144,45 +139,4 @@ fun RowScope.Additem(
 
 )
 
-//    Box(
-//        modifier = Modifier
-//            .height(60.dp)
-//            .width(60.dp)
-//            .background(background)
-//            .clickable(onClick = {
-//                navController.navigate(screen.route) {
-//                    popUpTo(navController.graph.findStartDestination().id)
-//                    launchSingleTop = true
-//                }
-//            }),
-//        contentAlignment = Alignment.Center
-//    ){
-//        Column(
-//            modifier =Modifier
-//                .padding(horizontal = 10.dp, vertical = 8.dp),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
-//
-//        ) {
-//            Icon(
-//                painter = painterResource(id = contentIcon),
-//                contentDescription = "icon",
-//                tint = Color(0xff003B72)
-//                )
-//            Text(
-//                text = screen.title,
-//                color = Color.Black,
-//                fontSize = 9.sp,
-//                textAlign = TextAlign.Center
-//                )
-//
-//
-//        }
-//    }
-}
-
-@Composable
-@Preview
-fun BottomNavPreview(){
-    BottomNav()
 }

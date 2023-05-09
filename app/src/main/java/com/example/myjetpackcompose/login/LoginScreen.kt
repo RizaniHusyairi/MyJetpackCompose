@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -28,6 +29,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
+import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myjetpackcompose.R
@@ -35,86 +39,121 @@ import com.example.myjetpackcompose.font.customFontPoppins
 
 
 @Composable
-fun LoginScreen(navController: NavController) {
-        Image(
-            painter = painterResource(id = R.drawable.vector_biru) ,
-            contentDescription = "biru",
-            modifier = Modifier.absoluteOffset(x = (-260).dp, y = 60.dp)
-        )
-        Image(
-            painter = painterResource(id = R.drawable.vector_merah) ,
-            contentDescription = "merah",
-            modifier = Modifier.absoluteOffset(x = 300.dp, y = 200.dp)
-        )
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo_si),
-            contentDescription = "logo",
-            modifier = Modifier.size(120.dp)
-        )
-        Text(
-            text = "SKRIPSWEET",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xff555658),
-            fontFamily = customFontPoppins,
-
-        )
-        Text(
-            text = "SISTEM INFORMASI",
-            color = Color(0xff555658),
-            fontFamily = customFontPoppins,
-            modifier = Modifier.offset(y = (-10).dp)
-        )
-        Spacer(modifier = Modifier.padding(10.dp))
-        Box(
-            modifier = Modifier
-                .offset(y = 30.dp)
-                .shadow(
-                    elevation = 3.dp,
-                    ambientColor = Color(0x3C000000),
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .background(
-                    color = Color(0x4DE1E1E1),
-
-                    )
-                .fillMaxWidth()
-                .padding(bottom = 250.dp, top = 0.dp),
-            contentAlignment = Alignment.Center
-
-        ) {
-            Column(
-                modifier = Modifier.padding(vertical = 50.dp, horizontal = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                val nim = NimTextField()
-                val pass = PassTextField()
-
-                Spacer(modifier = Modifier.padding(vertical = 20.dp))
-                CustomButton(text = "LOGIN", color = Color(0xff3C6489)) {
-                    Log.e("NIM", nim)
-                    Log.e("Pass", pass)
-                    navController.navigate(MainScreen.MahasiswaScreen.route)
-
-                }
-
-            }
-        }
-
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
 fun showLoginScreen(){
     val navController = rememberNavController()
     LoginScreen(navController = navController)
+}
+
+@Composable
+fun LoginScreen(navController: NavController) {
+    ConstraintLayout (modifier = Modifier.fillMaxSize()) {
+        val (blueLine,redLine,logo,boxLogin) = createRefs()
+        Image(
+            painter = painterResource(id = R.drawable.vector_biru) ,
+            contentDescription = "biru",
+            modifier = Modifier
+                .constrainAs(blueLine){
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                }
+                .size(300.dp)
+                .offset(x = (-200).dp)
+        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.constrainAs(logo){
+                top.linkTo(blueLine.bottom, margin = (-220).dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.logo_si),
+                contentDescription = "logo",
+                modifier = Modifier.size(120.dp),
+                alignment = Alignment.Center
+            )
+
+            Text(
+                text = "SKRIPSWEET",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xff555658),
+                fontFamily = customFontPoppins,
+                )
+
+            Text(
+                text = "SISTEM INFORMASI",
+                color = Color(0xff555658),
+                fontFamily = customFontPoppins,
+                modifier = Modifier.offset(y = (-10).dp)
+            )
+        }
+        Image(
+            painter = painterResource(id = R.drawable.vector_merah) ,
+            contentDescription = "merah",
+            modifier = Modifier
+                .size(300.dp)
+                .constrainAs(redLine){
+                    top.linkTo(logo.bottom, margin = (-130).dp)
+                    end.linkTo(parent.end)
+                }
+                .offset(x = 190.dp)
+
+        )
+        Column(
+            modifier = Modifier
+                .constrainAs(boxLogin){
+                    top.linkTo(redLine.bottom)
+                    bottom.linkTo(parent.bottom, margin = 270.dp)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(modifier = Modifier.padding(10.dp))
+            Box(
+                modifier = Modifier
+                    .offset(y = 30.dp)
+//                .shadow(
+//                    elevation = 1.dp,
+//                    ambientColor = Color(0x3C000000),
+//                    shape = RoundedCornerShape(16.dp)
+//                )
+                    .background(
+                        color = Color(0x4DE1E1E1),
+                        shape = RoundedCornerShape(16.dp)
+
+                    )
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+
+            ) {
+                Column(
+                    modifier = Modifier.padding(vertical = 50.dp, horizontal = 10.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    val nim = NimTextField()
+                    val pass = PassTextField()
+
+                    Spacer(modifier = Modifier.padding(vertical = 20.dp))
+                    CustomButton(text = "LOGIN", color = Color(0xff3C6489)) {
+                        Log.e("NIM", nim)
+                        Log.e("Pass", pass)
+                        navController.navigate(MainScreen.MahasiswaScreen.route)
+
+                    }
+
+                }
+            }
+
+        }
+
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
